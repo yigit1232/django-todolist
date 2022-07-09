@@ -1,0 +1,73 @@
+{% extends 'layout.html' %}
+{% block title %}To Do App {% endblock title %}
+
+{% block body %}
+<section class="container mt-5 ">
+    <div class="row">
+        <div class="col-md-12 d-flex justify-content-center ">
+            <div class="card w-75 border">
+                <div class="card-header">
+                    <a href="{% url 'index' %}" class="text-decoration-none text-primary"><h2>Todo App</h2></a>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <form action="" method="get" class="d-flex mb-3">
+                                <input type="search" name="q" class="form-control rounded-0 rounded-start " placeholder="Search todo" id=""><button type="submit" class="btn btn-primary rounded-0 rounded-end"><i class="fa fa-search"></i></button>
+                            </form>
+                            <form action="" method="POST" class="d-flex mb-3">
+                                {% csrf_token %}
+                                <input type="search" name="name" class="form-control rounded-0 rounded-start " placeholder="Add todo" id=""><button type="submit" class="btn btn-success rounded-0 rounded-end"><i class="fas fa-plus"></i></button>
+                            </form>
+                            {% if error %} <p class="text-danger">{{error}}</p> {% endif %}
+                            <h5 class="border-bottom pb-2">Tasks</h5>
+                                {% if data %}
+                            <table class="table">
+                                {% if q %}
+                                <h5> {{count}} results about "{{q}}" </h5>
+                                {% endif %}
+                                <thead>
+                                  <tr>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Created Date</th>
+                                    <th scope="col">Delete</th>
+                                    <th scope="col">Update</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                {% for i in data %}
+                                  <tr>
+                                    <td>{{i.content}}</td>
+                                    <td>{{i.created_date}}</td>
+                                    <td><a href="delete/{{i.id}}/" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></a></td>
+                                    <td><a href="update/{{i.id}}/" class="btn btn-success btn-sm"><i class="fas fa-pencil-alt"></i></a></td>
+                                  </tr>
+                                {% endfor %}
+                                </tbody>
+                              </table>
+                              <a href="delete-all/" class="btn btn-danger btn-sm">Clear All</a>
+                              {% else %}
+
+                              {% if q %}
+                              {% if not data %}
+                              <div class="alert alert-danger">Sorry, we couldn't find any results for {{q}}</div>
+
+                              {% endif %}
+                              {% else %}
+                              <div class="alert alert-danger">There are not to-do list</div>
+
+                              {% endif %}
+                              
+                                {% endif %}  
+                              
+                                      
+
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock body %}

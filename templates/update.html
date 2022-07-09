@@ -1,0 +1,42 @@
+{% extends 'layout.html' %}
+{% block title %}To Do App Update {% endblock title %}
+
+{% block body %}
+<section class="container mt-5 ">
+    <div class="row">
+        <div class="col-md-12 d-flex justify-content-center ">
+            <div class="card w-75 border">
+            {% if not error %}
+                 <div class="card-header">
+                    <a href="{% url 'index' %}" class="text-decoration-none text-primary"><h2>Todo App Update</h2></a>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <form action="" method="POST" class="d-flex mb-3">
+                                {% csrf_token %}
+                                <input type="search" name="todo" class="form-control rounded-0 rounded-start" value="{{data.content}}" placeholder="Update todo" id=""><button type="submit" class="btn btn-success rounded-0 rounded-end"><i class="fas fa-save"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+            
+            <div class="card-header">
+                <a href="{% url 'index' %}" class="text-decoration-none text-primary"><h2>Todo Item Not Found !</h2></a>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12">
+                      <div class="alert alert-danger">{{error}}</div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
+                
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
